@@ -1,0 +1,227 @@
+import random
+import os
+import time
+
+
+def clear():
+    os.system("clear")
+
+# This is a set of instructions for Rock-Paper-Scissors Game
+
+
+def rps_instructions():
+
+    print()
+    print("Instructions for Rock-Paper-Scissors Game : ")
+    print()
+    print("Rock crushes Scissors")
+    print("Scissors cuts Paper")
+    print("Paper covers Rock")
+    print()
+
+# This is a different set of instructions for Rock-Paper-Scissors-Lizard-Spock Game
+
+
+def rpsls_instructions():
+
+    print()
+    print("Instructions for Rock-Paper-Scissors-Lizard-Spock Game : ")
+    print()
+    print("Scissors cuts Paper")
+    print("Paper covers Rock")
+    print("Rock crushes Lizard")
+    print("Lizard poisons Spock")
+    print("Spock smashes Scissors")
+    print("Scissors decapitates Lizard")
+    print("Lizard eats Paper")
+    print("Paper disproves Spock")
+    print("Spock vaporizes Rock")
+    print("Rock crushes Scissors")
+    print()
+
+
+def rps():
+
+    global rps_table
+    global game_map
+    global name
+
+    # Setting up Game Loop for each game of Rock-Paper-Scissors
+    while True:
+
+        print("--------------------------------------")
+        print("\t\tMenu")
+        print("--------------------------------------")
+        print("Enter \"help\" for instructions")
+        print("Enter \"Rock\",\"Paper\",\"Scissors\" to play")
+        print("Enter \"exit\" to quit")
+        print("--------------------------------------")
+
+        print()
+
+        # This Section handles Player Input
+        inp = input("Enter your move : ")
+
+        if inp.lower() == "help":
+            clear()
+            rps_instructions()
+            continue
+        elif inp.lower() == "exit":
+            clear()
+            break
+        elif inp.lower() == "rock":
+            player_move = 0
+        elif inp.lower() == "paper":
+            player_move = 1
+        elif inp.lower() == "scissors":
+            player_move = 2
+        else:
+            clear()
+            print("Wrong Input!!")
+            rps_instructions()
+            continue
+
+        print("Computer is making its own move....")
+
+        print()
+        time.sleep(2)
+
+        # Get the computer move randomly
+        comp_move = random.randint(0, 2)
+
+        # This Section Prints the computer move
+        print("Computer chooses ", game_map[comp_move].upper())
+
+        # Now the winner of the match is
+        winner = rps_table[player_move][comp_move]
+
+        # This Section Declares the winner
+        if winner == player_move:
+            print(name, "WINS!!!. WELL DONE")
+        elif winner == comp_move:
+            print("COMPUTER WINS!!!. TRY AGAIN")
+        else:
+            print("TIE GAME. YOU ARE A GENIUS!")
+
+        print()
+        time.sleep(2)
+        clear()
+
+
+def rpsls():
+
+    global rpsls_table
+    global game_map
+    global name
+
+    # This SEction Deals with Game Loop for each game of Rock-Paper-Scissors-Lizard-Spock
+    while True:
+        print("--------------------------------------")
+        print("\t\tMenu")
+        print("--------------------------------------")
+        print("Enter \"help\" for instructions")
+        print("Enter \"Rock\",\"Paper\",\"Scissors\",\"Lizard\",\"Spock\" to play")
+        print("Enter \"exit\" to quit")
+        print("--------------------------------------")
+
+        print()
+
+        # This Section Displays Player Input
+        inp = input("Enter your move : ")
+
+        if inp.lower() == "help":
+            clear()
+            rpsls_instructions()
+            continue
+        elif inp.lower() == "exit":
+            clear()
+            break
+        elif inp.lower() == "rock":
+            player_move = 0
+        elif inp.lower() == "paper":
+            player_move = 1
+        elif inp.lower() == "scissors":
+            player_move = 2
+        elif inp.lower() == "lizard":
+            player_move = 3
+        elif inp.lower() == "spock":
+            player_move = 4
+        else:
+            clear()
+            print("You made a Wrong Input!!")
+            rps_instructions()
+            continue
+
+        print("Computer is making a move....")
+
+        comp_move = random.randint(0, 4)
+        print()
+        time.sleep(2)
+
+        print("Computer chooses ", game_map[comp_move].upper())
+
+        winner = rpsls_table[player_move][comp_move]
+        print()
+        if winner == player_move:
+            print(name, "WINS!!!. YOU ARE A GENIUS!")
+        elif winner == comp_move:
+            print("COMPUTER WINS!!!. TRY AGAIN!")
+        else:
+            print("TIE GAME. GOOD GAME!")
+        print()
+        time.sleep(2)
+        clear()
+
+
+# The main function
+if __name__ == '__main__':
+
+    # This Section Shows the mapping between moves and numbers
+    game_map = {0: "rock", 1: "paper", 2: "scissors", 3: "lizard", 4: "Spock"}
+
+    # Win-lose matrix for traditional game
+    rps_table = [[-1, 1, 0], [1, -1, 2], [0, 2, -1]]
+
+    # Win-lose matrix for new version of the game
+    rpsls_table = [[-1, 1, 0, 0, 4], [1, -1, 2, 3, 1],
+                   [0, 2, -1, 2, 4], [0, 3, 2, -1, 3], [4, 1, 4, 3, -1]]
+
+    name = input("Enter your name: ")
+
+    # The GAME LOOP
+    while True:
+
+        # The Game Menu
+        print()
+        print("You are Welcome. Please let's Play!!!")
+        print("Which version of Rock-Paper-Scissors?")
+        print("Enter 1 to play Rock-Paper-Scissors")
+        print("Enter 2 to play Rock-Paper-Scissors-Lizard-Spock")
+        print("Enter 3 to quit")
+        print()
+
+        # This Section Display Attempt to try block to handle the player choice
+        try:
+            choice = int(input("Enter your choice = "))
+        except ValueError:
+            clear()
+            print("Wrong Choice")
+            continue
+
+        # This Section gives the Player Opportunity to Play the traditional version of the game
+        if choice == 1:
+            rps()
+
+        # This Section Gives the Player Opportunity to Play the new version of the game
+        elif choice == 2:
+            rpsls()
+
+        # This Sections is About Quit the GAME LOOP
+        elif choice == 3:
+            break
+
+        # This Section is for Other wrong input
+        else:
+            clear()
+            print("Wrong choice. Please Read the instructions carefully.")
+            print("Thank you for your time!")
